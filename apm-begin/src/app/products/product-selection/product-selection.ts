@@ -1,7 +1,8 @@
-import { Component, effect, signal } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ProductData } from '../product-data';
 import { Product } from '../product';
+import { computeMsgId } from '@angular/compiler';
 
 @Component({
   selector: 'app-product-selection',
@@ -15,7 +16,10 @@ export class ProductSelection {
   selectedProduct = signal<Product | undefined>(undefined);
   quantity = signal(1);
 
-  products = ProductData.products;
+  products = signal(ProductData.products);
+
+  total = computed(() => (this.selectedProduct()?.price ?? 0) * this.quantity());
+  color = computed(() => this.total() > 200 ? 'green' : 'blue');
 
   onIncrease(){
     this.quantity.update(q => q+1);

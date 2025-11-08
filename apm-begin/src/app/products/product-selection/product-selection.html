@@ -9,7 +9,7 @@
       <div class="cellFull">
         <select [(ngModel)]="selectedProduct" >
           <option value="undefined" selected>--Select a product--</option>
-          @for (product of products; track product.id) {
+          @for (product of products(); track product.id) {
             <option [ngValue]="product">{{product.productName}}</option>
           }
         </select>
@@ -36,6 +36,10 @@
             <button class="qtyButton qtyButtonRight" (click)="onIncrease()">+</button>
           </div>
         </div>
+    </div>
+    <div class="row">
+      <div class="cellLeft">Total: </div>
+      <div class="cellRight" [style.color]="color()" >{{ total() }}</div>
     </div>
   </div>
 
