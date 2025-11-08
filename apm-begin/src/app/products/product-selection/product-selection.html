@@ -3,7 +3,14 @@
     {{pageTitle}}
   </div>
 
-  <div class="grid">
+  @if(isLoading()){
+    <div>...Loading</div>
+  }@else if (errorMessage()) {
+    <div style="color: red;">An error occurred: {{errorMessage()}}</div>
+  }
+  @else
+  {
+    <div class="grid">
     
     <div class="grid">
       <div class="cellFull">
@@ -42,5 +49,6 @@
       <div class="cellRight" [style.color]="color()" >{{ total() }}</div>
     </div>
   </div>
+  }
 
 </div>
