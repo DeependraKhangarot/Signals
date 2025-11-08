@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, effect, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ProductData } from '../product-data';
 import { Product } from '../product';
@@ -24,4 +24,7 @@ export class ProductSelection {
   onDecrease(){
     this.quantity.update(q => q <= 0 ? 0 : q-1);
   }
+
+  qtyEffect = effect(() => console.log('quantity', this.quantity()));
+
 }
