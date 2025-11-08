@@ -3,13 +3,20 @@
     {{pageTitle}}
   </div>
 
-  <div class="grid">
+  @if(isLoading()){
+    <div>...Loading</div>
+  }@else if (errorMessage()) {
+    <div style="color: red;">An error occurred: {{errorMessage()}}</div>
+  }
+  @else
+  {
+    <div class="grid">
     
     <div class="grid">
       <div class="cellFull">
         <select [(ngModel)]="selectedProduct" >
           <option value="undefined" selected>--Select a product--</option>
-          @for (product of products; track product.id) {
+          @for (product of products(); track product.id) {
             <option [ngValue]="product">{{product.productName}}</option>
           }
         </select>
@@ -37,6 +44,12 @@
           </div>
         </div>
     </div>
+    <div class="row">
+      <div class="cellLeft">Total: </div>
+      <div class="cellRight" [style.color]="color()" >{{ total() }}</div>
+    </div>
   </div>
+  <app-review-list></app-review-list>
+  }
 
 </div>
