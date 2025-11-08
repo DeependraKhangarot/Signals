@@ -4,10 +4,11 @@ import { ProductData } from '../product-data';
 import { Product } from '../product';
 import { computeMsgId } from '@angular/compiler';
 import { ProductService } from '../product.service';
+import { ReviewList } from "../../reviews/review-list/review-list";
 
 @Component({
   selector: 'app-product-selection',
-  imports: [FormsModule],
+  imports: [FormsModule, ReviewList],
   templateUrl: './product-selection.html',
   styleUrl: './product-selection.css'
 })
@@ -16,7 +17,7 @@ export class ProductSelection {
   private productService = inject(ProductService);
 
 
-  selectedProduct = signal<Product | undefined>(undefined);
+  selectedProduct = this.productService.selectedProduct;
   quantity = linkedSignal({
     source: this.selectedProduct,
     computation: p => 1
